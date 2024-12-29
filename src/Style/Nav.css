@@ -1,0 +1,49 @@
+.nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1e3a8a;
+  color: white;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+.nav-link {
+  color: white;
+  text-decoration: none;
+}
+.app-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-right {
+  position: relative;
+  display: flex;
+}
+
+.notification-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.notification-icon:hover {
+  transform: scale(1.2);
+  color: #ffcc00;
+}
+
+.login-button-nav button{
+  background-color: #ffcc00;
+  color: #1e3a8a;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  margin-left: 10px;
+  border: none;
+}
