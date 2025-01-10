@@ -2,7 +2,10 @@ import React from 'react';
 import '../Style/Login.css';
 import { useState } from 'react';
 import Loading from './Loading';
-export default function Login({setLogedin}) {
+import { Link } from 'react-router-dom';
+
+export default function Login({ setLogedin }) {
+
     const [loading, setLoading] = useState(false);
 
     const CheckCradentials = async (e) => {
@@ -53,7 +56,7 @@ export default function Login({setLogedin}) {
                 <p className="login-footer">
 
                     {loading && <Loading />}
-                    {/* Don't have an account? <a href="/signup">Sign up</a> */}
+                    {!loading && <Link to='/signup'>Create User</Link>}
                 </p>
             </div>
         </div>
