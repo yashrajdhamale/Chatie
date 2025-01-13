@@ -4,7 +4,7 @@ import '../Style/Nav.css';
 import Notification from './Notification';
 import { Link } from 'react-router-dom';
 
-export default function Nav() {
+export default function Nav({ logedin }) {
     const [showNotifications, setShowNotifications] = useState(false);
 
     const toggleNotifications = () => {
@@ -14,7 +14,7 @@ export default function Nav() {
     return (
         <header className="nav-header">
             <div className="nav-left">
-                <Link to='/Chatie'  className="nav-link">
+                <Link to='/Chatie' className="nav-link">
                     <span className="app-name">Chatie</span>
                 </Link>
             </div>
@@ -24,7 +24,8 @@ export default function Nav() {
                 </div>
                 {showNotifications && <Notification />}
                 <div className="login-button-nav" >
-                    <Link to='/login'><button>Login</button></Link>
+                    {!logedin && <Link to='/login'><button>Login</button></Link>}
+                    {logedin && <Link to='/profile'><button>Profile</button></Link>}
                 </div>
             </div>
         </header>

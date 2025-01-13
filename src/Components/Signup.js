@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../Style/Signup.css';
 
 import Loading from './Loading';
@@ -6,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 export default function Signup() {
     const [loading, setLoading] = useState(false);
-
+    const Navigate = useNavigate();
     const handleSignup = async (e) => {
         e.preventDefault();
         const firstname = document.getElementById('firstname').value;
@@ -16,7 +17,7 @@ export default function Signup() {
         
         setLoading(true);
         
-        const res = await fetch('http://localhost:3001/signup', {
+        const res = await fetch('https://backend-chatiee.onrender.com/user/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -31,6 +32,7 @@ export default function Signup() {
             alert(data.error);
         } else {
             alert(data.message);
+            Navigate('/login');
             document.getElementById('signup-form').reset();
         }
     };
@@ -39,7 +41,7 @@ export default function Signup() {
         <div className="signup-container">
             <div className="signup-card">
                 <h2 className="signup-title">Sign Up</h2>
-                <form id="signup-form" className="signup-form">
+                <form id="signup-form" className="signup-form" onSubmit={handleSignup}>
                     <div className="form-group">
                         <label htmlFor="firstname">First Name</label>
                         <input type="text" id="firstname" placeholder="Enter your first name" required />
@@ -56,7 +58,7 @@ export default function Signup() {
                         <label htmlFor="password">Password</label>
                         <input type="password" id="password" placeholder="Enter your password" required />
                     </div>
-                    <button onClick={handleSignup} className="signup-button">Sign Up</button>
+                    <button type='submit' className="signup-button">Sign Up</button>
                 </form>
                 <p className="signup-footer">
                     {loading && <Loading />}

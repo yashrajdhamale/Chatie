@@ -1,0 +1,91 @@
+/* Home.css */
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .home-title {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #343a40;
+  }
+  
+  .home-description {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #6c757d;
+  }
+  
+  .search-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .search-button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  .profiles-list {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-card {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .profile-card h3 {
+    margin: 0;
+    color: #495057;
+  }
+  
+  .profile-card p {
+    margin: 10px 0;
+    color: #6c757d;
+  }
+  
+  .chat-request-button {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    color: #fff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .chat-request-button:hover {
+    background-color: #218838;
+  }
+  
