@@ -9,7 +9,7 @@ export const LocationProvider = ({ children, logedin }) => {
         // Function to update the user's location in the database
         const updateLocationInDatabase = async (location) => {
             try {
-                await fetch('http://localhost:3001/userprofile/update-location', {
+                await fetch('https://backend-chatiee.onrender.com/userprofile/update-location', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
