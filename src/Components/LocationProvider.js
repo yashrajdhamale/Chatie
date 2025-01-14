@@ -5,37 +5,16 @@ export const LocationContext = createContext();
 export const LocationProvider = ({ children, logedin }) => {
     const [location, setLocation] = useState(null);
 
-    const haversineDistance = (coords1, coords2) => {
-        const toRad = (value) => (value * Math.PI) / 180;
-
-        const R = 6371000; // Earth's radius in meters
-        const lat1 = toRad(coords1.latitude);
-        const lon1 = toRad(coords1.longitude);
-        const lat2 = toRad(coords2.latitude);
-        const lon2 = toRad(coords2.longitude);
-
-        const dLat = lat2 - lat1;
-        const dLon = lon2 - lon1;
-
-        const a =
-            Math.sin(dLat / 2) ** 2 +
-            Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-        return R * c; // Distance in meters
-    };
-
     useEffect(() => {
-        let lastLocation = null; // Tracks the last significant location
-
+        // Function to update the user's location in the database
         const updateLocationInDatabase = async (location) => {
             try {
-                await fetch('https://backend-chatiee.onrender.com/userprofile/update-location', {
+                await fetch('http://localhost:3001/userprofile/update-location', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    credentials: 'include',
+                    credentials: 'include', // Include cookies if necessary
                     body: JSON.stringify(location),
                 });
                 console.log('Location updated in DB:', location);
@@ -44,36 +23,29 @@ export const LocationProvider = ({ children, logedin }) => {
             }
         };
 
+        // Watch the user's geolocation
         const watchId = navigator.geolocation.watchPosition(
             (position) => {
                 const { latitude, longitude } = position.coords;
                 const currentLocation = { latitude, longitude };
 
-                if (lastLocation) {
-                    const distance = haversineDistance(lastLocation, currentLocation);
-                    // console.log('Distance Moved:', distance);
+                // Update the location state
+                setLocation(currentLocation);
 
-                    if (distance > 0) { // Update only if moved more than 2 meters
-                        setLocation(currentLocation);
-                        lastLocation = currentLocation; // Update last significant location
-                        if (logedin) { updateLocationInDatabase(currentLocation); }
-                    }
-                } else {
-                    // Set initial location
-                    setLocation(currentLocation);
-                    lastLocation = currentLocation;
-                    if (logedin){updateLocationInDatabase(currentLocation);}
-                    console.log('Initial Location:', currentLocation);
+                // Update location in the database if the user is logged in
+                if (logedin) {
+                    updateLocationInDatabase(currentLocation);
                 }
             },
             (error) => console.error('Error getting location:', error),
-            { enableHighAccuracy: true }
+            { enableHighAccuracy: true } // Use high accuracy for location
         );
 
+        // Cleanup: Stop watching location when the component unmounts
         return () => {
-            navigator.geolocation.clearWatch(watchId); // Cleanup on component unmount
+            navigator.geolocation.clearWatch(watchId);
         };
-    }, []);
+    }, [logedin]); // Dependency array includes `logedin` to re-run when login state changes
 
     return (
         <LocationContext.Provider value={location}>
@@ -81,4 +53,3 @@ export const LocationProvider = ({ children, logedin }) => {
         </LocationContext.Provider>
     );
 };
-

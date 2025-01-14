@@ -23,7 +23,7 @@ export default function Home() {
           credentials: 'include',
         });
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         setProfiles(data);
       };
       fetchProfiles(); // Call the async function
