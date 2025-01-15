@@ -17,7 +17,7 @@ export const LocationProvider = ({ children, logedin }) => {
                     credentials: 'include', // Include cookies if necessary
                     body: JSON.stringify(location),
                 });
-                console.log('Location updated in DB:', location);
+                // console.log('Location updated in DB:', location);
             } catch (error) {
                 console.error('Error updating location in DB:', error);
             }
